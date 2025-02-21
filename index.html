@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>补药打我</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #fce4ec;
+            font-family: Arial, sans-serif;
+        }
+        #photo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-top: 50px;
+            position: relative;
+        }
+        #hitButton, #resetButton {
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin: 20px 10px;
+        }
+        #hitButton {
+            background-color: red;
+            color: white;
+        }
+        #resetButton {
+            background-color: green;
+            color: white;
+        }
+        #message {
+            font-size: 24px;
+            color: #d50000;
+            margin-top: 20px;
+            display: none;
+        }
+        #counter {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #333;
+        }
+        .hammer {
+            position: absolute;
+            width: 120px; /* 放大锤子 */
+            height: 120px;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-30deg);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>补药打我！😂</h1>
+    <img id="photo" src="myface.png" alt="你的照片">
+    <br>
+    <button id="hitButton">知不知错？💥</button>
+    <button id="resetButton">我原谅你了 😊</button>
+    <p id="message">宝宝别打我了，我错了！🥺</p>
+    <p id="counter">你已经揍了我 <span id="count">0</span> 次</p>
+    
+    <img id="hammer" class="hammer" src="hammer.png" alt="小锤子">
+
+    <script>
+        let count = 0;
+        document.getElementById("hitButton").addEventListener("click", function() {
+            // 计数器 +1
+            count++;
+            document.getElementById("count").textContent = count;
+            
+            // 显示文字
+            document.getElementById("message").style.display = "block";
+
+            // 屏幕震动
+            if (navigator.vibrate) {
+                navigator.vibrate(300);
+            }
+
+            // 显示小锤子动画（更大更生动）
+            let hammer = document.getElementById("hammer");
+            hammer.style.display = "block";
+            hammer.style.top = "-50px"; // 抬高起始位置
+            hammer.style.transform = "translateX(-50%) rotate(-45deg)";
+
+            setTimeout(() => {
+                hammer.style.top = "120px"; // 敲下去
+                hammer.style.transform = "translateX(-50%) rotate(0deg)";
+            }, 150);
+
+            setTimeout(() => {
+                hammer.style.display = "none"; // 隐藏锤子
+            }, 400);
+        });
+
+        // 重置按钮，清零计数器
+        document.getElementById("resetButton").addEventListener("click", function() {
+            count = 0;
+            document.getElementById("count").textContent = count;
+            document.getElementById("message").style.display = "none"; // 隐藏认错文字
+        });
+    </script>
+
+</body>
+</html>
